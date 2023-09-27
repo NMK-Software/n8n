@@ -1304,17 +1304,6 @@ export interface ITabBarItem {
 	disabled?: boolean;
 }
 
-export interface IResourceLocatorReqParams {
-	nodeTypeAndVersion: INodeTypeNameVersion;
-	path: string;
-	methodName?: string;
-	searchList?: ILoadOptions;
-	currentNodeParameters: INodeParameters;
-	credentials?: INodeCredentials;
-	filter?: string;
-	paginationToken?: unknown;
-}
-
 export interface IResourceLocatorResultExpanded extends INodeListSearchItems {
 	linkAlt?: string;
 }
@@ -1422,13 +1411,25 @@ export type NodeAuthenticationOption = {
 	displayOptions?: IDisplayOptions;
 };
 
-export interface ResourceMapperReqParams {
-	nodeTypeAndVersion: INodeTypeNameVersion;
+interface NodeDetailsReqParams {
 	path: string;
-	methodName?: string;
+	nodeTypeAndVersion: INodeTypeNameVersion;
 	currentNodeParameters: INodeParameters;
+	methodName?: string;
 	credentials?: INodeCredentials;
 }
+
+export interface NodeParameterOptionsReqParams extends NodeDetailsReqParams {
+	loadOptions?: ILoadOptions;
+}
+
+export interface IResourceLocatorReqParams extends NodeDetailsReqParams {
+	filter?: string;
+	paginationToken?: unknown;
+}
+
+export type ResourceMapperReqParams = NodeDetailsReqParams;
+
 export interface EnvironmentVariable {
 	id: number;
 	key: string;
